@@ -6,11 +6,11 @@ import java.util.Map;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import org.apache.log4j.Logger;
-
 import com.kingschan.fastquery.WebArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.vo.DataTransfer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <pre>
@@ -20,7 +20,7 @@ import com.kingschan.fastquery.vo.DataTransfer;
  *</pre>
  */
 public class TotalLogicHandle implements LogicHandle {
-	private static Logger log = Logger.getLogger(TotalLogicHandle.class);
+	private static Logger log = LoggerFactory.getLogger(TotalLogicHandle.class);
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {

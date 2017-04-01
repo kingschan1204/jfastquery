@@ -9,6 +9,9 @@ import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.JdbcTemplete;
 import com.kingschan.fastquery.vo.DataTransfer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 分页查询逻辑处理
  * @author kingschan
@@ -16,6 +19,7 @@ import com.kingschan.fastquery.vo.DataTransfer;
  */
 public class PaginationQueryLogicHandle implements LogicHandle {
 
+    private Logger log = LoggerFactory.getLogger(PaginationQueryLogicHandle.class);
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
         List<?> lis =null;
@@ -30,8 +34,8 @@ public class PaginationQueryLogicHandle implements LogicHandle {
             dsp.pagnation(sqb.getPageIndex(), sqb.getPageSize());
         }           
             //设置sql
-        sqb.setSql(dsp.toString()); 
-        System.out.println(sqb.getSql());
+        sqb.setSql(dsp.toString());
+        log.debug("SQL:{}",sqb.getSql());
         lis= JdbcTemplete.queryForListMap(con,dsp.toString());
         sqb.setQueryResult(lis);
         return sqb;

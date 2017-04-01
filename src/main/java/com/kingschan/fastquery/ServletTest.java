@@ -19,9 +19,6 @@ import java.io.IOException;
 
 public class ServletTest extends HttpServlet{
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -34,7 +31,7 @@ public class ServletTest extends HttpServlet{
 //        }else{
             //xml
             cmd = new SqlCommand();
-            cmd.setSql("select * from blog_article");
+            cmd.setSql("select * from blog_website");
             cmd.setDBtype(DbType.MYSQL);
 //        }
         dispa.handleDispacher(ServletUtil.getParameterMap(req),cmd, new GridOutPut(),
