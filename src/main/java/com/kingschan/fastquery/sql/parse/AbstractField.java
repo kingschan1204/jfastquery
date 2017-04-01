@@ -19,30 +19,17 @@ public abstract class AbstractField implements FieldTypeAnalysis{
 	static{
 		Operator= new HashMap<String, String>();
 		Operator.put("eq", "=");
-		Operator.put("notEq", "<>");
-		Operator.put("Less", "<");
-		Operator.put("Greater", ">");
-		Operator.put("GreaterEq", ">=");
-		Operator.put("LessEq", "<=");		
-		Operator.put("Contain", "like '%${value}%'");
-		Operator.put("likeLeft", "like '${value}%'");
-		Operator.put("likeRight", "like '%${value}'");
-		Operator.put("in", "in");
-		Operator.put("null", "is null");
-		Operator.put("!null", "is not null");
-		//添加对中文的支持
-		Operator.put("等于", "=");
-		Operator.put("不等于", "<>");
-		Operator.put("大于", ">");
-		Operator.put("小于", "<");
-		Operator.put("大于等于", ">=");
-		Operator.put("小于等于", "<=");	
-		Operator.put("包含", "like '%${value}%'");
-		Operator.put("左包含", "like '${value}%'");
-		Operator.put("右包含", "like '%${value}'");
-		Operator.put("集合", "in");
-		Operator.put("空", "is null");
-		Operator.put("非空", "is not null");
+		Operator.put("neq", "<>");
+		Operator.put("gt", ">");
+		Operator.put("lt", "<");
+		Operator.put("gte", ">=");
+		Operator.put("lte", "<=");
+		Operator.put("c", "like '%${value}%'");
+		Operator.put("sw", "like '${value}%'");
+		Operator.put("ew", "like '%${value}'");
+		Operator.put("...", "in");
+		Operator.put("nl", "is null");
+		Operator.put("nnl", "is not null");
 	}
 	/**
 	 * 得到操作符

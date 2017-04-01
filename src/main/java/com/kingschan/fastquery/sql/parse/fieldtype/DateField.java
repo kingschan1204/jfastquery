@@ -42,10 +42,10 @@ public class DateField extends AbstractField{
 		String filed=condition.getSqlfiled();//字段
 			
 		if (validation(condition)) {
-			if (Operator.matches("null|!null|空|非空")) {
+			if (Operator.matches("nl|nnl")) {
 				return String.format("%s %s",filed, AbstractField.Operator.get(Operator));
 			}
-			else if (Operator.equals("between")) {
+			else if (Operator.equals("bw")) {
 				String value2=RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
 				return String.format("%s between '%s' and '%s' ", filed,value,value2);
 			}
@@ -64,10 +64,10 @@ public class DateField extends AbstractField{
 		String value=RegexUtil.findStrByRegx(condition.getValue1(), RegexUtil.regex_date);		
 		//lock_date >= to_date('2010-04-02','YYYY-mm-dd');
 		if (validation(condition)) {
-			if (Operator.matches("null|!null|空|非空")) {
+			if (Operator.matches("nl|nnl")) {
 				return String.format("%s %s",filed, AbstractField.Operator.get(Operator));
 			}
-			else if (Operator.equals("between")) {
+			else if (Operator.equals("bw")) {
 				String value2=RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
 				return String.format("%s between '%s' and '%s' ", condition.getSqlfiled(),value,value2);
 			}
@@ -85,9 +85,9 @@ public class DateField extends AbstractField{
 		String filed=condition.getSqlfiled();//字段
 		//CONVERT(varchar(100), GETDATE(), 23):
 		if (validation(condition)) {
-			if (Operator.matches("null|!null|空|非空")) {
+			if (Operator.matches("nl|nnl")) {
 				return String.format("%s %s",filed, AbstractField.Operator.get(Operator));
-			}else if (Operator.equals("between")) {
+			}else if (Operator.equals("bw")) {
 				String value2=RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
 				return String.format("%s between '%s' and '%s' ", condition.getSqlfiled(),value,value2);
 			}

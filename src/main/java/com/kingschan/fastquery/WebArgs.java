@@ -3,7 +3,6 @@ package com.kingschan.fastquery;
  * 前台传入有效web参数
  * @author fedora
  *date:2013-8-8
- *curl "http://localhost/EasyQuery/test?order=asc&limit=10&offset=0"
  */
 public class WebArgs {
 	/**

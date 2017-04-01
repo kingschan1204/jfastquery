@@ -6,6 +6,14 @@
 - oralce
 - sqlserver
 
+### 特性
+
+- 分页
+- 排序
+- 动态传参
+- 动态组合where条件
+- 支持freemarker表达式（在sql里写ftl指令）
+
 ### 查询条件关键字
 
 |关键字|说明|
@@ -28,6 +36,7 @@ type|字段类型：TEXT,NUMBER,DATE,STRING,SELECT,DATETIME,BOOLEAN
 小于|lt|less than
 大于等于|gte|Greater than or equal to
 小于等于|lte|Less than equal
+介于|bw|between
 包含|c|Contain
 左包含|sw| start with
 右包含|ew|end with 

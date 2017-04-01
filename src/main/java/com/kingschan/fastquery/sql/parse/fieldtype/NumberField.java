@@ -19,9 +19,9 @@ public class NumberField extends AbstractField{
 		sb.append(field).append(" ");
 		if (condition.getOperator().matches("Contain|likeLeft|likeRight")) {
             return "";
-        }else if(Operator.matches("in|集合")){
+        }else if(Operator.matches("...")){
             sb.append(" in (").append(StringUtil.convertStrToSqlInstr(value, true)).append(")");
-        }else  if (Operator.matches("null|!null|空|非空")) {
+        }else  if (Operator.matches("nl|nnl")) {
             sb.append(AbstractField.Operator.get(Operator));
         }else if (null==value||!value.matches(RegexUtil.regex_number)) {
 			return "";

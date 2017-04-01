@@ -29,11 +29,11 @@ public class TextField extends AbstractField{
 		value=java.net.URLDecoder.decode(value, "UTF-8");
 		StringBuffer sb = new StringBuffer();
 		sb.append(filed).append(" ");		
-		if (Operator.matches("Contain|likeLeft|likeRight|包含|左包含|右包含")) {
+		if (Operator.matches("c|sw|ew")) {
 			sb.append(AbstractField.Operator.get(Operator).replace("${value}", value));
-		}else if (Operator.matches("null|!null|空|非空")) {
+		}else if (Operator.matches("nl|nnl")) {
 			sb.append(AbstractField.Operator.get(Operator));
-		}else if(Operator.equals("in")){
+		}else if(Operator.equals("...")){
 			sb.append(" in (").append(StringUtil.convertStrToSqlInstr(value, false)).append(")");
 		}
 		else{

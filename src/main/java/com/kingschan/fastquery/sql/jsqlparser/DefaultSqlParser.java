@@ -24,6 +24,9 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectItem;
 import net.sf.jsqlparser.statement.select.Top;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 
 *  <pre>    
@@ -38,6 +41,7 @@ import net.sf.jsqlparser.statement.select.Top;
 * </pre>
  */
 public class DefaultSqlParser implements SqlAnalyse {
+	private Logger log = LoggerFactory.getLogger(DefaultSqlParser.class);
 	private String sql;
 	private DbType dbtype;
 	private CCJSqlParserManager parserManager ;
@@ -72,6 +76,7 @@ public class DefaultSqlParser implements SqlAnalyse {
                throw new Exception(String.format("%s不是有效的查询语句！", p_sql));
            }
         } catch (Exception e) {
+		   log.error("sql parser error:",p_sql);
             e.printStackTrace();
         }
 	}

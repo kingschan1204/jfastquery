@@ -73,7 +73,7 @@ public class QueryDispacherTest {
         JSONArray filter = new JSONArray();
         //filter.add(JSONObject.fromObject("{\"\"}"));
         JSONObject condition;
-        //括号
+        //括号测试
         condition=new JSONObject();
         condition.put("field","(");
         filter.add(condition);
@@ -87,7 +87,7 @@ public class QueryDispacherTest {
         condition.put("value2","");
         condition.put("type","STRING");
         filter.add(condition);
-        // or
+        // or 测试
         condition=new JSONObject();
         condition.put("logic","or"); // AND & OR 运算符
         condition.put("operator","eq");//WHERE 子句中的运算符
@@ -98,23 +98,55 @@ public class QueryDispacherTest {
         condition.put("type","STRING");
         filter.add(condition);
 
-        //括号
+        //括号测试
         condition=new JSONObject();
         condition.put("field",")");//字段
         filter.add(condition);
 
 
-        // and
+       /* // 日期测试
         condition=new JSONObject();
         condition.put("logic","and"); // AND & OR 运算符
-        condition.put("operator","notEq");//WHERE 子句中的运算符
+        condition.put("operator","gte");//WHERE 子句中的运算符
         condition.put("table","a");//表别名
-        condition.put("field","req_ip");//字段
-        condition.put("value","127.0.0.1");//值
+        condition.put("field","req_datetime");//字段
+        condition.put("value","2017-03-30");//值
+        condition.put("value2","");
+        condition.put("type","DATETIME");
+        filter.add(condition);
+
+        // 日期测试
+        condition=new JSONObject();
+        condition.put("logic","and"); // AND & OR 运算符
+        condition.put("operator","lte");//WHERE 子句中的运算符
+        condition.put("table","a");//表别名
+        condition.put("field","req_datetime");//字段
+        condition.put("value","2017-04-01");//值
+        condition.put("value2","");
+        condition.put("type","DATETIME");
+        filter.add(condition);*/
+
+        // 集合测试
+        condition=new JSONObject();
+        condition.put("logic","and"); // AND & OR 运算符
+        condition.put("operator","...");//WHERE 子句中的运算符
+        condition.put("table","a");//表别名
+        condition.put("field","req_url");//字段
+        condition.put("value","/,/lable_lis");//值
         condition.put("value2","");
         condition.put("type","STRING");
         filter.add(condition);
 
+        //between 测试
+        condition=new JSONObject();
+        condition.put("logic","and"); // AND & OR 运算符
+        condition.put("operator","bw");//WHERE 子句中的运算符
+        condition.put("table","a");//表别名
+        condition.put("field","req_datetime");//字段
+        condition.put("value","2017-01-01");//值
+        condition.put("value2","2017-02-01");
+        condition.put("type","DATE");
+        filter.add(condition);
 
 
         //查询方案所有传入参数

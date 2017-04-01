@@ -51,7 +51,7 @@ public class DateTimeField extends AbstractField{
 				return String.format("%s between '%s' and '%s' ", filed,value,value2);
 			}
 			String operactor=AbstractField.Operator.get(Operator);
-			return String.format("date_format(%s,'%%Y-%%c-%%d %%h:%%i:%%s')%s '%s'", filed,operactor,value);
+			return String.format("date_format(%s,'%%Y-%%m-%%d %%H:%%i:%%s')%s '%s'", filed,operactor,value);
 		}
 		return "";
 		
