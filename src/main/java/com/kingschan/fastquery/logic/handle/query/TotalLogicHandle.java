@@ -32,6 +32,7 @@ public class TotalLogicHandle implements LogicHandle {
             //构建where条件
             sp.appendCondition(sqb.getWhere());
             sp.count();
+            log.debug("pagination:{}",sp.toString());
             Object total = JdbcTemplete.UniqueQuery(con, sp.toString());
             if (null!=total) {
                 sqb.setTotal(Long.valueOf(total.toString())); 

@@ -72,7 +72,13 @@ public class QueryDispacherTest {
         //查询条件
         JSONArray filter = new JSONArray();
         //filter.add(JSONObject.fromObject("{\"\"}"));
-        JSONObject condition=new JSONObject();
+        JSONObject condition;
+        //括号
+        condition=new JSONObject();
+        condition.put("field","(");
+        filter.add(condition);
+
+        condition=new JSONObject();
         condition.put("logic","and"); // AND & OR 运算符
         condition.put("operator","eq");//WHERE 子句中的运算符
         condition.put("table","a");//表别名
@@ -81,6 +87,35 @@ public class QueryDispacherTest {
         condition.put("value2","");
         condition.put("type","STRING");
         filter.add(condition);
+        // or
+        condition=new JSONObject();
+        condition.put("logic","or"); // AND & OR 运算符
+        condition.put("operator","eq");//WHERE 子句中的运算符
+        condition.put("table","a");//表别名
+        condition.put("field","req_blog");//字段
+        condition.put("value","about");//值
+        condition.put("value2","");
+        condition.put("type","STRING");
+        filter.add(condition);
+
+        //括号
+        condition=new JSONObject();
+        condition.put("field",")");//字段
+        filter.add(condition);
+
+
+        // and
+        condition=new JSONObject();
+        condition.put("logic","and"); // AND & OR 运算符
+        condition.put("operator","notEq");//WHERE 子句中的运算符
+        condition.put("table","a");//表别名
+        condition.put("field","req_ip");//字段
+        condition.put("value","127.0.0.1");//值
+        condition.put("value2","");
+        condition.put("type","STRING");
+        filter.add(condition);
+
+
 
         //查询方案所有传入参数
         Map<String,Object> map = new HashMap<String, Object>();

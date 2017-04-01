@@ -315,7 +315,7 @@ public class DefaultSqlParser implements SqlAnalyse {
 	}
     public void count() throws Exception {
        List<String> columns = new ArrayList<String>();
-       String template="select count(*) from (%s) tmp_";
+       String template="select count(1) from (%s) tmp_";
        if (null!=ps.getOrderByElements()) {
            //统计的情况下去掉排序无意义
            ps.setOrderByElements(null);
@@ -324,7 +324,7 @@ public class DefaultSqlParser implements SqlAnalyse {
         //存在group 就要 包多一层
            init(String.format(template, ps.toString()), dbtype);
        }else{
-          columns.add("count(*)");
+          columns.add("count(1)");
           this.setSelectColumns(columns);
           init(this.toString(), dbtype);
        }

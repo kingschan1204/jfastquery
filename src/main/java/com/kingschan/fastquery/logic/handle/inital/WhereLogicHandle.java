@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +15,9 @@ import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
 import com.kingschan.fastquery.vo.DataTransfer;
 import com.kingschan.fastquery.vo.SqlCondition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * <pre>
  * @author kingschan
@@ -23,7 +25,7 @@ import com.kingschan.fastquery.vo.SqlCondition;
  *</pre>
  */
 public class WhereLogicHandle implements LogicHandle {
-    private static Logger log = Logger.getLogger(WhereLogicHandle.class);
+    private static Logger log = LoggerFactory.getLogger(WhereLogicHandle.class);
     public static final String default_condition_key="0xfa";
     public static final String constraint_key="0xfb";
     /**
@@ -64,11 +66,11 @@ public class WhereLogicHandle implements LogicHandle {
             //解决逻辑冲突
             if (filters.length()>0) {
                 JSONArray temp = new JSONArray();
-                temp.put(0,new JSONObject("{logic:'and',field:'('}"));
+              //  temp.put(0,new JSONObject("{logic:'and',field:'('}"));
                 for (int i = 0; i < filters.length(); i++) {
                     temp.put(filters.get(i));
                 }
-                temp.put(new JSONObject("{logic:'and',field:')'}"));
+              //  temp.put(new JSONObject("{logic:'and',field:')'}"));
                 filters=temp;
             }
             log.debug(String.format("组合查询：%s", filters));           
@@ -82,19 +84,18 @@ public class WhereLogicHandle implements LogicHandle {
                     //不是括号进行条件解析
                     FiledType f=FiledType.valueOf(condition.getFieldtype().toUpperCase());//字段类型
                     where_filter =QueryArgsAnalysisFactory.getAnalysis(f).Analysis(condition, type);//解析出来的条件
+                }//如果是括号
+                else {
+                    String s=String.format("%s%s",condition.getSqlfiled().matches("\\)")?"":relationShip,condition.getSqlfiled());
+                    filter.append(i==1?s.replaceFirst("(?i)and|or", ""):s);
                 }
                 if (relationShip.matches("(?i)and|or")) {
-                    if (parentheses) {
-                        String s=String.format("%s%s",condition.getSqlfiled().matches("\\)")?"":relationShip,condition.getSqlfiled());
-                        filter.append(i==1?s.replaceFirst("(?i)and|or", ""):s);
-                    }else{
-                        if (filter.toString().replaceAll("\\s*", "").matches(".*\\($")) 
+                        if (filter.toString().replaceAll("\\s*", "").matches(".*\\($"))
                             filter.append(where_filter);
                         else if (null!=where_filter&&!where_filter.isEmpty()) {
                             filter.append(String.format("%s %s", relationShip,where_filter));
                         }
                             
-                    }
                 }
                     
             }

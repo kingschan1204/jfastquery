@@ -14,16 +14,10 @@ import com.kingschan.fastquery.vo.DataTransfer;
 public interface Query {
 	/**
 	 * 分页查询
-	 * @param con  
-	 * @param sql	
-	 * @param pageIndex 
-	 * @param pagesize 
-	 * @param orderByStr  
-	 * @param closeConnection 
-	 * @param whereStr   
+	 * @param dt
 	 * @return
 	 * @throws Exception
-	 */
+     */
 	DataTransfer paginationQuery(DataTransfer dt)throws Exception;
 
 }
