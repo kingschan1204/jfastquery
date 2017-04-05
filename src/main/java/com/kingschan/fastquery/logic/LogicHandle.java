@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.Map;
 
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 
 
 /**

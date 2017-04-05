@@ -7,7 +7,7 @@ import java.util.Map;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 /**
  * Map查询
  * @author kingschan

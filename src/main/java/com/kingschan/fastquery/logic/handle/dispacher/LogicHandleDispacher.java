@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.logic.handle.ExportLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
@@ -19,8 +18,8 @@ import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
 import com.kingschan.fastquery.output.DataOutPut;
 import com.kingschan.fastquery.sql.connection.ConnectionFactory;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import com.kingschan.fastquery.vo.DataTransfer;
-import com.kingschan.fastquery.vo.SqlCommand;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
+import com.kingschan.fastquery.sql.dto.SqlCommand;
 
 /**
  * 
@@ -79,8 +78,6 @@ public class LogicHandleDispacher {
 		Connection conn=null;	
 		DataTransfer dt =new DataTransfer();
 		dt.setSql(cmd.getSql());
-		dt.addProperties(WhereLogicHandle.constraint_key, cmd.getProperties(WhereLogicHandle.constraint_key));
-		dt.addProperties(WhereLogicHandle.default_condition_key, cmd.getProperties(WhereLogicHandle.default_condition_key));
 			
 		try {
 			conn =ConnectionFactory.getConn(cmd.getJdbcConnection());

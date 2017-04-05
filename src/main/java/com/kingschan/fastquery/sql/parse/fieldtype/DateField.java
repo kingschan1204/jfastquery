@@ -2,7 +2,7 @@ package com.kingschan.fastquery.sql.parse.fieldtype;
 
 import com.kingschan.fastquery.sql.parse.AbstractField;
 import com.kingschan.fastquery.util.RegexUtil;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 /**
  * 
 *  <pre>    
@@ -26,8 +26,8 @@ public class DateField extends AbstractField{
      */
 	private boolean validation(SqlCondition condition)throws Exception {
 		String operactor=condition.getOperator();
-		if (null== RegexUtil.findStrByRegx(condition.getValue1(), RegexUtil.regex_date)) {
-			throw new Exception(String.format("格式错误：%s 正确格式：[2010-01-01]", condition.getValue1()));			
+		if (null== RegexUtil.findStrByRegx(condition.getValue(), RegexUtil.regex_date)) {
+			throw new Exception(String.format("格式错误：%s 正确格式：[2010-01-01]", condition.getValue()));
 		}else if (operactor.matches("(?i)between")) {
 			return null==RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
 		}
@@ -37,9 +37,9 @@ public class DateField extends AbstractField{
 	@Override
 	protected String mysqlAnalysis(SqlCondition condition) throws Exception {
 		//date_format(field,'%Y-%m-%d')
-		String value=RegexUtil.findStrByRegx(condition.getValue1(), RegexUtil.regex_date);		
+		String value=RegexUtil.findStrByRegx(condition.getValue(), RegexUtil.regex_date);
 		String Operator=condition.getOperator();//操作符
-		String filed=condition.getSqlfiled();//字段
+		String filed=condition.getField();//字段
 			
 		if (validation(condition)) {
 			if (Operator.matches("nl|nnl")) {
@@ -60,8 +60,8 @@ public class DateField extends AbstractField{
 	@Override
 	protected String oracleAnalysis(SqlCondition condition) throws Exception {
 		String Operator=condition.getOperator();//操作符
-		String filed=condition.getSqlfiled();//字段
-		String value=RegexUtil.findStrByRegx(condition.getValue1(), RegexUtil.regex_date);		
+		String filed=condition.getField();//字段
+		String value=RegexUtil.findStrByRegx(condition.getValue(), RegexUtil.regex_date);
 		//lock_date >= to_date('2010-04-02','YYYY-mm-dd');
 		if (validation(condition)) {
 			if (Operator.matches("nl|nnl")) {
@@ -69,10 +69,10 @@ public class DateField extends AbstractField{
 			}
 			else if (Operator.equals("bw")) {
 				String value2=RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
-				return String.format("%s between '%s' and '%s' ", condition.getSqlfiled(),value,value2);
+				return String.format("%s between '%s' and '%s' ", condition.getField(),value,value2);
 			}
 			String operactor=AbstractField.Operator.get(Operator);
-			return String.format("%s %s to_date('%s','YYYY-mm-dd')", condition.getSqlfiled(),operactor,value);
+			return String.format("%s %s to_date('%s','YYYY-mm-dd')", condition.getField(),operactor,value);
 		}
 		return "";
 		
@@ -80,19 +80,19 @@ public class DateField extends AbstractField{
 
 	@Override
 	protected String sqlserverAnalysis(SqlCondition condition) throws Exception {	
-		String value=RegexUtil.findStrByRegx(condition.getValue1(), RegexUtil.regex_date);		
+		String value=RegexUtil.findStrByRegx(condition.getValue(), RegexUtil.regex_date);
 		String Operator=condition.getOperator();//操作符
-		String filed=condition.getSqlfiled();//字段
+		String filed=condition.getField();//字段
 		//CONVERT(varchar(100), GETDATE(), 23):
 		if (validation(condition)) {
 			if (Operator.matches("nl|nnl")) {
 				return String.format("%s %s",filed, AbstractField.Operator.get(Operator));
 			}else if (Operator.equals("bw")) {
 				String value2=RegexUtil.findStrByRegx(condition.getValue2(), RegexUtil.regex_date);
-				return String.format("%s between '%s' and '%s' ", condition.getSqlfiled(),value,value2);
+				return String.format("%s between '%s' and '%s' ", condition.getField(),value,value2);
 			}
 			String operactor=AbstractField.Operator.get(Operator);
-			return String.format("CONVERT(varchar(10),%s,23)%s'%s'", condition.getSqlfiled(),operactor,value);
+			return String.format("CONVERT(varchar(10),%s,23)%s'%s'", condition.getField(),operactor,value);
 		}
 		return null;
 		

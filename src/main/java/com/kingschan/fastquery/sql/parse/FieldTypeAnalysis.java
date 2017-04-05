@@ -1,6 +1,6 @@
 package com.kingschan.fastquery.sql.parse;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 /**
  * 
 *  <pre>    

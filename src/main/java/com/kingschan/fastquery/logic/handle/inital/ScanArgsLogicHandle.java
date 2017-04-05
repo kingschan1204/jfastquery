@@ -5,7 +5,7 @@ import java.util.Map;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.StringTemplateParser;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 /**
  * 扫描并处理动态变量
  * @author kingschan

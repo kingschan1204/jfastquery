@@ -5,7 +5,7 @@ import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.JdbcTemplete;
 import com.kingschan.fastquery.util.StringUtil;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 
 import java.sql.Connection;
 import java.util.List;

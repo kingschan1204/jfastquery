@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kingschan.fastquery.output.DataOutPut;
 import com.kingschan.fastquery.util.EasyUiTagUtil;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 /**
  * 
 * <pre>

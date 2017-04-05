@@ -1,4 +1,4 @@
-package com.kingschan.fastquery.vo;
+package com.kingschan.fastquery.sql.dto;
 
 import java.util.HashMap;
 import java.util.List;

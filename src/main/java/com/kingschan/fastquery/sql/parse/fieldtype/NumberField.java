@@ -3,7 +3,7 @@ package com.kingschan.fastquery.sql.parse.fieldtype;
 import com.kingschan.fastquery.sql.parse.AbstractField;
 import com.kingschan.fastquery.util.RegexUtil;
 import com.kingschan.fastquery.util.StringUtil;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 /**
  *数字类型解析
  * @author kingschan
@@ -12,8 +12,8 @@ import com.kingschan.fastquery.vo.SqlCondition;
 public class NumberField extends AbstractField{
 
 	private String generic(SqlCondition condition) throws Exception{
-		String value=condition.getValue1();
-		String field =condition.getSqlfiled();
+		String value=condition.getValue();
+		String field =condition.getField();
 		String Operator=condition.getOperator();//操作符
 		StringBuffer sb = new StringBuffer();
 		sb.append(field).append(" ");

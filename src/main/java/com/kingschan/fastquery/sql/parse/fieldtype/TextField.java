@@ -2,7 +2,7 @@ package com.kingschan.fastquery.sql.parse.fieldtype;
 
 import com.kingschan.fastquery.sql.parse.AbstractField;
 import com.kingschan.fastquery.util.StringUtil;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 
 /**
  * Text
@@ -19,9 +19,9 @@ public class TextField extends AbstractField{
 	 * @throws Exception
      */
 	private String generic(SqlCondition condition) throws Exception{
-		String value=condition.getValue1();//值
+		String value=condition.getValue();//值
 		String Operator=condition.getOperator();//操作符
-		String filed=condition.getSqlfiled();//字段
+		String filed=condition.getField();//字段
 		
 		if (StringUtil.null2Empty(value).isEmpty()) {
 			return "";

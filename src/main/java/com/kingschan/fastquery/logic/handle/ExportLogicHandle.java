@@ -1,20 +1,13 @@
 package com.kingschan.fastquery.logic.handle;
 
 import java.sql.Connection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
-import com.kingschan.fastquery.util.StringUtil;
 import org.apache.log4j.Logger;
 
-import com.kingschan.fastquery.conf.model.KeyWordArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 /**
  * <pre>
  * 导出EXCEL时的逻辑处理

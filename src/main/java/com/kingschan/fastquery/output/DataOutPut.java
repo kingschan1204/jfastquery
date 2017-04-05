@@ -3,8 +3,7 @@ package com.kingschan.fastquery.output;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 
 /**
  * servlet 格式化输出
@@ -40,13 +39,14 @@ public interface DataOutPut {
 	public enum Format{
 		HTML,JSON,TEXT,PDF,EXCEL,CSV
 	}
+
 	/**
 	 * 执行格式化
 	 * @param request
 	 * @param response
-	 * @param sqb
+	 * @param dtf
 	 * @param args
-	 * @throws Exception
-	 */
-	void output(HttpServletRequest request,HttpServletResponse response,DataTransfer sqb,Map<String, Object> args)throws Exception;
+     * @throws Exception
+     */
+	void output(HttpServletRequest request,HttpServletResponse response,DataTransfer dtf,Map<String, Object> args)throws Exception;
 }

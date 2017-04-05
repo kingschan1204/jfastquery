@@ -11,8 +11,8 @@ import org.json.JSONObject;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
-import com.kingschan.fastquery.vo.DataTransfer;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
  */
 public class WhereLogicHandle implements LogicHandle {
     private static Logger log = LoggerFactory.getLogger(WhereLogicHandle.class);
-    public static final String default_condition_key="0xfa";
-    public static final String constraint_key="0xfb";
     /**
      * 将json传成对象
      * @param json
@@ -33,7 +31,6 @@ public class WhereLogicHandle implements LogicHandle {
      * @throws JSONException
      */
     private SqlCondition getCondition(JSONObject json) throws JSONException{
-        SqlCondition sc = new SqlCondition();       
         String logic=json.has("logic")?json.getString("logic"):"";
         //defOperator  快捷查询
         String operator=json.has("operator")?json.getString("operator"):(json.has("defOperator")?json.getString("defOperator"):"");
@@ -41,18 +38,19 @@ public class WhereLogicHandle implements LogicHandle {
         String field=json.has("field")?json.getString("field"):"";
         String value=json.has("value")?json.getString("value"):"";
         String type=json.has("type")?json.getString("type"):"";
-        sc.setLogic(logic);
-        sc.setOperator(operator);
-        sc.setSqlfiled(table.isEmpty()?field:String.format("%s.%s", table,field));
-        sc.setValue1(value);
-        sc.setFieldtype(type);
-        if (json.has("value2")) {
-            sc.setValue2(json.getString("value2"));
-        }
+        String value2=json.has("value2")?json.getString("value2"):null;
+        SqlCondition sc = new SqlCondition(
+                logic,
+                table.isEmpty()?field:String.format("%s.%s", table,field),
+                type,
+                operator,
+                value,
+                value2
+        );
         return sc;
     }
     
-    public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,DbType type) throws Exception {
+    public DataTransfer doLogic(Map<String, Object> args, DataTransfer dts, Connection con,DbType type) throws Exception {
         FastQueryConfigure configure =FastQueryConfigure.getInstance();
         StringBuffer filter = new StringBuffer();
         if(args.containsKey(configure.getArgs().getFilter())){
@@ -76,16 +74,16 @@ public class WhereLogicHandle implements LogicHandle {
             //取出每个条件
             for (int i=0;i<filters.length();i++) {
                 SqlCondition condition=getCondition(filters.getJSONObject(i));
-                boolean parentheses=condition.getSqlfiled().matches("\\(|\\)");//是否为括号
+                boolean parentheses=condition.getField().matches("\\(|\\)");//是否为括号
                 String relationShip=condition.getLogic();//逻辑运算符
                 String where_filter=null;
                 if (!parentheses) {
                     //不是括号进行条件解析
-                    FiledType f=FiledType.valueOf(condition.getFieldtype().toUpperCase());//字段类型
+                    FiledType f=FiledType.valueOf(condition.getType().toUpperCase());//字段类型
                     where_filter =QueryArgsAnalysisFactory.getAnalysis(f).Analysis(condition, type);//解析出来的条件
                 }//如果是括号
                 else {
-                    String s=String.format("%s%s",condition.getSqlfiled().matches("\\)")?"":relationShip,condition.getSqlfiled());
+                    String s=String.format("%s%s",condition.getField().matches("\\)")?"":relationShip,condition.getField());
                     filter.append(i==1?s.replaceFirst("(?i)and|or", ""):s);
                 }
                 if (relationShip.matches("(?i)and|or")) {
@@ -101,7 +99,7 @@ public class WhereLogicHandle implements LogicHandle {
             
         }
         if (filter.length()>0) {
-            sqb.setWhere(filter.toString());
+            dts.setWhere(filter.toString());
         }
         String sort=null;
         if (args.containsKey(configure.getArgs().getSort())&&!args.get(configure.getArgs().getSort()).toString().isEmpty()) {
@@ -110,14 +108,14 @@ public class WhereLogicHandle implements LogicHandle {
         Integer pageSize = args.containsKey(configure.getArgs().getPageSize())?Integer.valueOf(args.get(configure.getArgs().getPageSize()).toString()):null;
         Integer pageindex = args.containsKey(configure.getArgs().getPageIndex())?Integer.valueOf(args.get(configure.getArgs().getPageIndex()).toString()):null;
         /********************************************************************************************/ 
-        sqb.setPageIndex(pageindex);
-        sqb.setPageSize(pageSize);
+        dts.setPageIndex(pageindex);
+        dts.setPageSize(pageSize);
         if(null!=sort&&sort.trim().length()>0){
             List<String> lis = new ArrayList<String>();
             lis.add(sort);
-            sqb.setOrder(lis);
+            dts.setOrder(lis);
         }
-        return sqb;
+        return dts;
     }
     
     

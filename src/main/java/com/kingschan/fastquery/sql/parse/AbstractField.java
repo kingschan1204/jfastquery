@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.vo.SqlCondition;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 /**
  * 抽象字段
  *@author kingschan

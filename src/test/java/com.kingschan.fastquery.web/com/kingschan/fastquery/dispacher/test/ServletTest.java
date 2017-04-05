@@ -8,7 +8,7 @@ import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
 import com.kingschan.fastquery.output.impl.GridOutPut;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.ServletUtil;
-import com.kingschan.fastquery.vo.SqlCommand;
+import com.kingschan.fastquery.sql.dto.SqlCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

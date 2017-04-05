@@ -8,7 +8,7 @@ import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

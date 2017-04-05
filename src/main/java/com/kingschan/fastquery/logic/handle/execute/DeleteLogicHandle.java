@@ -1,18 +1,13 @@
 package com.kingschan.fastquery.logic.handle.execute;
 
 import java.sql.Connection;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
-import com.kingschan.fastquery.util.StringUtil;
 import org.apache.log4j.Logger;
 
-import com.kingschan.fastquery.conf.model.KeyWordArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 
 /**
  * 增删除改处理

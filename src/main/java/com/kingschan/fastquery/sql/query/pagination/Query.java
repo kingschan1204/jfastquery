@@ -1,6 +1,6 @@
 package com.kingschan.fastquery.sql.query.pagination;
 
-import com.kingschan.fastquery.vo.DataTransfer;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
 
 
 

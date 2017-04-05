@@ -9,10 +9,11 @@ import com.kingschan.fastquery.logic.handle.query.MapQueryLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.PaginationQueryLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
 import com.kingschan.fastquery.sql.connection.ConnectionFactory;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import com.kingschan.fastquery.vo.DataTransfer;
-import com.kingschan.fastquery.vo.SqlCommand;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
+import com.kingschan.fastquery.sql.dto.SqlCommand;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -49,8 +50,6 @@ public class QueryDispacherTest {
         Connection conn=null;
         DataTransfer dt =new DataTransfer();
         dt.setSql(cmd.getSql());
-        dt.addProperties(WhereLogicHandle.constraint_key, cmd.getProperties(WhereLogicHandle.constraint_key));
-        dt.addProperties(WhereLogicHandle.default_condition_key, cmd.getProperties(WhereLogicHandle.default_condition_key));
 
         try {
             conn = ConnectionFactory.getConn(cmd.getJdbcConnection());
@@ -147,10 +146,11 @@ public class QueryDispacherTest {
         condition.put("type","DATE");
         filter.add(condition);
 
+        SqlCondition sc = new SqlCondition("and","a.req_datetime","DATE","bw","2017-01-01","2017-02-01");
 
         //查询方案所有传入参数
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("filter",filter.toString());//查询条件
+        map.put("filter","["+sc.toString()+"]");//查询条件
         map.put("sort","id");//排序字段
         map.put("order","desc");//排序的方式
         map.put("limit","10");//显示条数
