@@ -3,13 +3,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.kingschan.fastquery.WebArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
@@ -55,10 +53,11 @@ public class WhereLogicHandle implements LogicHandle {
     }
     
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,DbType type) throws Exception {
+        FastQueryConfigure configure =FastQueryConfigure.getInstance();
         StringBuffer filter = new StringBuffer();
-        if(args.containsKey(WebArgs.Filter)){
+        if(args.containsKey(configure.getArgs().getFilter())){
             //组合查询
-            String jsonstr=java.net.URLDecoder.decode(args.get(WebArgs.Filter).toString(), "UTF-8");
+            String jsonstr=java.net.URLDecoder.decode(args.get(configure.getArgs().getFilter()).toString(), "UTF-8");
             if (null==jsonstr||jsonstr.replaceAll("\\s*", "").isEmpty()) {
                 jsonstr="[]"; 
             }
@@ -73,7 +72,7 @@ public class WhereLogicHandle implements LogicHandle {
               //  temp.put(new JSONObject("{logic:'and',field:')'}"));
                 filters=temp;
             }
-            log.debug(String.format("组合查询：%s", filters));           
+            log.debug("组合查询：{}", filters);
             //取出每个条件
             for (int i=0;i<filters.length();i++) {
                 SqlCondition condition=getCondition(filters.getJSONObject(i));
@@ -105,11 +104,11 @@ public class WhereLogicHandle implements LogicHandle {
             sqb.setWhere(filter.toString());
         }
         String sort=null;
-        if (args.containsKey(WebArgs.Sort)&&!args.get(WebArgs.Sort).toString().isEmpty()) {
-            sort=String.format("%s %s", args.get(WebArgs.Sort),args.get(WebArgs.Order));
+        if (args.containsKey(configure.getArgs().getSort())&&!args.get(configure.getArgs().getSort()).toString().isEmpty()) {
+            sort=String.format("%s %s", args.get(configure.getArgs().getSort()),args.get(configure.getArgs().getOrder()));
         }
-        Integer pageSize = args.containsKey(WebArgs.pageSize)?Integer.valueOf(args.get(WebArgs.pageSize).toString()):null;
-        Integer pageindex = args.containsKey(WebArgs.Pageindex)?Integer.valueOf(args.get(WebArgs.Pageindex).toString())/pageSize:null;
+        Integer pageSize = args.containsKey(configure.getArgs().getPageSize())?Integer.valueOf(args.get(configure.getArgs().getPageSize()).toString()):null;
+        Integer pageindex = args.containsKey(configure.getArgs().getPageIndex())?Integer.valueOf(args.get(configure.getArgs().getPageIndex()).toString()):null;
         /********************************************************************************************/ 
         sqb.setPageIndex(pageindex);
         sqb.setPageSize(pageSize);

@@ -35,7 +35,7 @@ public class PaginationQueryLogicHandle implements LogicHandle {
         }           
             //设置sql
         sqb.setSql(dsp.toString());
-        log.debug("SQL:{}",sqb.getSql());
+        log.debug("SQL:{}",dsp.toString());
         lis= JdbcTemplete.queryForListMap(con,dsp.toString());
         sqb.setQueryResult(lis);
         return sqb;

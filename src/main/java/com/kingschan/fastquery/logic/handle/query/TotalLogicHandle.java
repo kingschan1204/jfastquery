@@ -3,10 +3,10 @@ package com.kingschan.fastquery.logic.handle.query;
 import java.sql.Connection;
 import java.util.Map;
 
+import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.JdbcTemplete;
-import com.kingschan.fastquery.WebArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.vo.DataTransfer;
 import org.slf4j.Logger;
@@ -24,10 +24,11 @@ public class TotalLogicHandle implements LogicHandle {
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
+        FastQueryConfigure configure =FastQueryConfigure.getInstance();
         /**
          * 判断是否为分页模式
          */
-        if (args.containsKey(WebArgs.Pageindex)&&args.containsKey(WebArgs.pageSize)) {
+        if (args.containsKey(configure.getArgs().getPageIndex())&&args.containsKey(configure.getArgs().getPageSize())) {
             DefaultSqlParser sp = new DefaultSqlParser(sqb.getSql(),type);
             //构建where条件
             sp.appendCondition(sqb.getWhere());

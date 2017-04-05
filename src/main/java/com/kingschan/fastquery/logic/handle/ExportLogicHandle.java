@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.StringUtil;
 import org.apache.log4j.Logger;
 
-import com.kingschan.fastquery.WebArgs;
+import com.kingschan.fastquery.conf.model.KeyWordArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.vo.DataTransfer;
 /**
@@ -26,9 +27,10 @@ public class ExportLogicHandle implements LogicHandle{
 	private static Logger log = Logger.getLogger(ExportLogicHandle.class);
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con, DbType type) throws Exception {
-        String disableColumns=args.containsKey(WebArgs.Disablecloums)?args.get(WebArgs.Disablecloums).toString():null;
-        String ids=args.containsKey(WebArgs.Ids)?args.get(WebArgs.Ids).toString():null;
-        String chooseField=args.containsKey(WebArgs.Choosefield)?args.get(WebArgs.Choosefield).toString():null;
+       /* FastQueryConfigure configure =FastQueryConfigure.getInstance();
+        String disableColumns=args.containsKey(KeyWordArgs.Disablecloums)?args.get(KeyWordArgs.Disablecloums).toString():null;
+        String ids=args.containsKey(KeyWordArgs.Ids)?args.get(KeyWordArgs.Ids).toString():null;
+        String chooseField=args.containsKey(KeyWordArgs.Choosefield)?args.get(KeyWordArgs.Choosefield).toString():null;
         DefaultSqlParser gsp = new DefaultSqlParser(sqb.getSql(),type);
         if (null!=disableColumns) {
             String[] dc =disableColumns.split(",");
@@ -62,7 +64,7 @@ public class ExportLogicHandle implements LogicHandle{
             log.info(" model:query export!");
             
         }
-        sqb.setSql(gsp.toString());
+        sqb.setSql(gsp.toString());*/
         return sqb;
     }
 

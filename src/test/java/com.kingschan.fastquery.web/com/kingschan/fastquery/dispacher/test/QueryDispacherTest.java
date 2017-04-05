@@ -153,7 +153,7 @@ public class QueryDispacherTest {
         map.put("filter",filter.toString());//查询条件
         map.put("sort","id");//排序字段
         map.put("order","desc");//排序的方式
-        map.put("limit","6");//显示条数
+        map.put("limit","10");//显示条数
         map.put("offset","1");//第几页
 
 

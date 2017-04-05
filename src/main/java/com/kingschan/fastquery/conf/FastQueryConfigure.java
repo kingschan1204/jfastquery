@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.util.Properties;
 
+import com.kingschan.fastquery.conf.model.KeyWordArgs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +31,14 @@ public class FastQueryConfigure {
     private static Logger log = LoggerFactory.getLogger(FastQueryConfigure.class);
     private static final String CONFIG_FILE_NAME = "fastquery.properties";//配置文件名称
     private DataSource defaultDs;//默认连接
+    private KeyWordArgs args;
 
     public void setDefaultDs(DataSource defaultDs) {
         this.defaultDs = defaultDs;
     }
-
+    public KeyWordArgs getArgs() {
+        return args;
+    }
 
     /**
      * read default configure file
@@ -63,6 +67,14 @@ public class FastQueryConfigure {
                 String className = p.getProperty("app.default.datasource");
                 Configure conf = (Configure) Class.forName(className).newInstance();
                 instance.setDefaultDs(conf.getDataSource());
+                //init keyword args
+                KeyWordArgs args=new KeyWordArgs();
+                args.setFilter(p.getProperty("app.keyword.filter"));
+                args.setOrder(p.getProperty("app.keyword.order"));
+                args.setPageIndex(p.getProperty("app.keyword.page.index"));
+                args.setPageSize(p.getProperty("app.keyword.page.size"));
+                args.setSort(p.getProperty("app.keyword.sort"));
+                instance.args=args;
             } catch (Exception e) {
                 log.error("{}", e);
                 e.printStackTrace();

@@ -10,7 +10,7 @@ import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
 import com.kingschan.fastquery.util.StringUtil;
 import org.apache.log4j.Logger;
 
-import com.kingschan.fastquery.WebArgs;
+import com.kingschan.fastquery.conf.model.KeyWordArgs;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.vo.DataTransfer;
 
@@ -24,8 +24,8 @@ public class DeleteLogicHandle implements LogicHandle{
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
-        String ids=args.containsKey(WebArgs.Ids)?args.get(WebArgs.Ids).toString():null;
-        String chooseField=args.containsKey(WebArgs.Choosefield)?args.get(WebArgs.Choosefield).toString():null;
+      /*  String ids=args.containsKey(KeyWordArgs.Ids)?args.get(KeyWordArgs.Ids).toString():null;
+        String chooseField=args.containsKey(KeyWordArgs.Choosefield)?args.get(KeyWordArgs.Choosefield).toString():null;
 
         DefaultSqlParser gsp = new DefaultSqlParser(sqb.getSql(),type);
         //设置选择列和选中的集合
@@ -43,7 +43,7 @@ public class DeleteLogicHandle implements LogicHandle{
             gsp.appendCondition(" and "+chooseField+" in ("+sb.toString().substring(0,sb.toString().length()-1)+")");
             
         }
-        sqb.setSql(gsp.toString());
+        sqb.setSql(gsp.toString());*/
         return sqb;
     }
 	
