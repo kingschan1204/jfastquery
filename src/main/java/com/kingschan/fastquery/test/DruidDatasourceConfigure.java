@@ -1,4 +1,4 @@
-package com.kingschan.fastquery.web.com.kingschan.fastquery.connections;
+package com.kingschan.fastquery.test;
 
 import java.util.HashMap;
 import java.util.Map;
