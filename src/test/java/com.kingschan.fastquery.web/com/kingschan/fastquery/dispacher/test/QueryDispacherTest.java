@@ -1,6 +1,5 @@
 package com.kingschan.fastquery.web.com.kingschan.fastquery.dispacher.test;
 
-import com.kingschan.fastquery.conf.EasyQueryConfigure;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.logic.handle.ExportLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
@@ -54,7 +53,7 @@ public class QueryDispacherTest {
         dt.addProperties(WhereLogicHandle.default_condition_key, cmd.getProperties(WhereLogicHandle.default_condition_key));
 
         try {
-            conn = ConnectionFactory.getConn(cmd.getJdbcConnection(), EasyQueryConfigure.getInstance().getConn());
+            conn = ConnectionFactory.getConn(cmd.getJdbcConnection());
             for (Class c : handles) {
                 dt =map.get(c).doLogic(req_args, dt, conn, cmd.getDBtype());
             }

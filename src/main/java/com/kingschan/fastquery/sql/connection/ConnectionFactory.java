@@ -3,6 +3,7 @@ package com.kingschan.fastquery.sql.connection;
 import java.sql.Connection;
 
 
+import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.AbstractConnection;
 import com.kingschan.fastquery.util.StringUtil;
 
@@ -13,16 +14,15 @@ import com.kingschan.fastquery.util.StringUtil;
  */
 public class ConnectionFactory {
 	/**
-	 * builder connection
-	 * @param jdbcClass  sqltag jdbcconnection class name
-	 * @param conn  easytag.properties class name
+	 *
+	 * @param jdbcClass
 	 * @return
-	 * @throws Exception 
-	 */
-	public static Connection getConn(String jdbcClass,AbstractConnection conn) throws Exception{
+	 * @throws Exception
+     */
+	public static Connection getConn(String jdbcClass) throws Exception{
 		Connection con=null;
 		if (StringUtil.replaceSpaceLine(jdbcClass).isEmpty()) {
-			con = conn.getConnection();
+			con = FastQueryConfigure.getInstance().getDefaultCon();
 		}else{
 			AbstractConnection absconn= (AbstractConnection) Class.forName(jdbcClass).newInstance();
 			con=absconn.getConnection();

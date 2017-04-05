@@ -1,15 +1,30 @@
-package com.kingschan.fastquery.web;
+package com.kingschan.fastquery.web.com.kingschan.fastquery.connections;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import javax.sql.DataSource;
+
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.kingschan.fastquery.conf.Configure;
+/**
+ * 
+*    
+* 类名称：DruidDatasourceConfigure   
+* 类描述：   
+* 创建人：kings.chan
+* 创建时间：2016-9-10 上午11:58:50   
+* 修改人：   
+* 修改时间：
+* 项目：EasyQuery
+* 修改备注：   
+* @version    
+*
+ */
+public class DruidDatasourceConfigure implements Configure{
 
-
-public class DruidDemo {
-
-	public static void main(String[] args) throws Exception {
+	@Override
+	public DataSource getDataSource() throws Exception {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put("url", "jdbc:mysql://localhost:3306/blog");
 		properties.put("username", "root");
@@ -26,7 +41,8 @@ public class DruidDemo {
 		properties.put("testOnReturn", "false");
 		properties.put("poolPreparedStatements", "true");
 		properties.put("maxOpenPreparedStatements", "20");
-		DruidDataSource ds = (DruidDataSource) DruidDataSourceFactory.createDataSource(properties);
-		System.out.println(ds.getConnection().isOracle());
+//		DruidDataSource ds = (DruidDataSource) ;
+		return DruidDataSourceFactory.createDataSource(properties);
 	}
+
 }

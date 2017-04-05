@@ -1,4 +1,4 @@
-package com.kingschan.fastquery;
+package com.kingschan.fastquery.web.com.kingschan.fastquery.connections;
 
 import com.kingschan.fastquery.sql.AbstractConnection;
 

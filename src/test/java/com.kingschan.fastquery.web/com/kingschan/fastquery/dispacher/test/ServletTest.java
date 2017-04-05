@@ -1,4 +1,4 @@
-package com.kingschan.fastquery;
+package com.kingschan.fastquery.web.com.kingschan.fastquery.dispacher.test;
 
 import com.kingschan.fastquery.logic.handle.dispacher.LogicHandleDispacher;
 import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
