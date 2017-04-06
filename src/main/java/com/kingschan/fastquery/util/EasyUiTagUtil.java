@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * easyui tag 工具类
+ * easyui 格式化工具类
  * 
  * @author kingschan date:2013-8-6
  */

@@ -5,7 +5,7 @@ import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.WhereLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.PaginationQueryLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
-import com.kingschan.fastquery.output.impl.GridOutPut;
+import com.kingschan.fastquery.output.impl.StandardOutPut;
 import com.kingschan.fastquery.sql.dto.SqlCondition;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.ServletUtil;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +53,7 @@ public class ServletTest extends HttpServlet{
             cmd.setSql("select * from blog_request_log a limit 10");
             cmd.setDBtype(DbType.MYSQL);
 //        }
-        dispa.handleDispacher(map,cmd, new GridOutPut(),
+        dispa.handleDispacher(map,cmd, new StandardOutPut(),
             new Class[]{
                 WhereLogicHandle.class,
                 ScanArgsLogicHandle.class,
