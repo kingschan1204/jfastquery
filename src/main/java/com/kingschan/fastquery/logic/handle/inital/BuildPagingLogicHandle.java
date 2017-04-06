@@ -1,4 +1,4 @@
-package com.kingschan.fastquery.logic.handle.query;
+package com.kingschan.fastquery.logic.handle.inital;
 
 import java.sql.Connection;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.Map;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
-import com.kingschan.fastquery.util.JdbcTemplete;
 import com.kingschan.fastquery.sql.dto.DataTransfer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +16,9 @@ import org.slf4j.LoggerFactory;
  * @author kingschan
  *2013-80-19
  */
-public class PaginationQueryLogicHandle implements LogicHandle {
+public class BuildPagingLogicHandle implements LogicHandle {
 
-    private Logger log = LoggerFactory.getLogger(PaginationQueryLogicHandle.class);
+    private Logger log = LoggerFactory.getLogger(BuildPagingLogicHandle.class);
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
         List<?> lis =null;
@@ -28,16 +27,21 @@ public class PaginationQueryLogicHandle implements LogicHandle {
         dsp.appendCondition(sqb.getWhere());        
         //设置排序
         if(null!=sqb.getOrder()&&!sqb.getOrder().isEmpty()){dsp.setOrderColumns(sqb.getOrder());}       
-        
+        //设置分页
         if (null!=sqb.getPageIndex()&&null!=sqb.getPageSize()) {
-            //普通查询 或者导出
+            //设置统计语句
+            DefaultSqlParser totalParser = new DefaultSqlParser(sqb.getSql(),type);
+            //构建where条件
+            totalParser.appendCondition(sqb.getWhere());
+            totalParser.count();//设置count
+            sqb.setTotalSql(totalParser.toString());
+            log.debug("Total SQL:{}",totalParser.toString());
+            //设置显示条数语句
             dsp.pagnation(sqb.getPageIndex(), sqb.getPageSize());
         }           
             //设置sql
         sqb.setSql(dsp.toString());
-        log.debug("SQL:{}",dsp.toString());
-        lis= JdbcTemplete.queryForListMap(con,dsp.toString());
-        sqb.setQueryResult(lis);
+        log.debug("Limit SQL:{}",dsp.toString());
         return sqb;
     }
 

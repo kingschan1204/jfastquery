@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
  *date:2014-8-8
  *</pre>
  */
-public class WhereLogicHandle implements LogicHandle {
-    private static Logger log = LoggerFactory.getLogger(WhereLogicHandle.class);
+public class BuildConditionLogicHandle implements LogicHandle {
+    private static Logger log = LoggerFactory.getLogger(BuildConditionLogicHandle.class);
     /**
      * 将json传成对象
      * @param json

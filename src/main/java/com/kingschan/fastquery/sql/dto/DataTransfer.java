@@ -27,7 +27,8 @@ public class DataTransfer implements java.io.Serializable{
 	private String chooseField;//导出时选择的字段
 	private Set<String> chooseIds;//导出时选择行的id集合
 	private long affected;//增删改操作受影响行数
-	private String sql;
+	private String sql;//sql语句
+	private String totalSql;//汇总sql语句
 	private Map<String, Object> properties;//扩展属性
 	
 	public DataTransfer(){
@@ -150,6 +151,11 @@ public class DataTransfer implements java.io.Serializable{
 	public void setSql(String sql) {
 		this.sql = sql;
 	}
-	
+	public String getTotalSql() {
+		return totalSql;
+	}
+	public void setTotalSql(String totalSql) {
+		this.totalSql = totalSql;
+	}
 	
 }

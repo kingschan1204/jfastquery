@@ -1,12 +1,12 @@
 package com.kingschan.fastquery.web.com.kingschan.fastquery.dispacher.test;
 
 import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
-import com.kingschan.fastquery.logic.handle.inital.WhereLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.ArrayQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.MapQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.PaginationQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildVariableLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildConditionLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteArrayQueryLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteMapQueryLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildPagingLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteTotalLogicHandle;
 import com.kingschan.fastquery.sql.connection.ConnectionFactory;
 import com.kingschan.fastquery.sql.dto.SqlCondition;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
@@ -29,12 +29,12 @@ public class QueryDispacherTest {
     private static Map<Class, LogicHandle> map ;
     static{
         map = new HashMap<Class, LogicHandle>();
-        map.put(ScanArgsLogicHandle.class, new ScanArgsLogicHandle());
-        map.put(WhereLogicHandle.class, new WhereLogicHandle());
-        map.put(ArrayQueryLogicHandle.class, new ArrayQueryLogicHandle());
-        map.put(MapQueryLogicHandle.class, new MapQueryLogicHandle());
-        map.put(PaginationQueryLogicHandle.class, new PaginationQueryLogicHandle());
-        map.put(TotalLogicHandle.class, new TotalLogicHandle());
+        map.put(BuildVariableLogicHandle.class, new BuildVariableLogicHandle());
+        map.put(BuildConditionLogicHandle.class, new BuildConditionLogicHandle());
+        map.put(ExecuteArrayQueryLogicHandle.class, new ExecuteArrayQueryLogicHandle());
+        map.put(ExecuteMapQueryLogicHandle.class, new ExecuteMapQueryLogicHandle());
+        map.put(BuildPagingLogicHandle.class, new BuildPagingLogicHandle());
+        map.put(ExecuteTotalLogicHandle.class, new ExecuteTotalLogicHandle());
     }
 
 
@@ -149,20 +149,23 @@ public class QueryDispacherTest {
         //查询方案所有传入参数
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("filter","["+sc.toString()+"]");//查询条件
-        map.put("sort","id");//排序字段
+        map.put("sort","req_datetime");//排序字段
         map.put("order","desc");//排序的方式
         map.put("limit","10");//显示条数
         map.put("offset","1");//第几页
 
+        map.put("blog","kingschan");
+
 
         SqlCommand cmd = new SqlCommand();
-        cmd.setSql("select * from blog_request_log a ");
+        cmd.setSql("select req_ip,count(1) total from blog_request_log a where a.req_blog='${blog}'  group by req_ip");
         cmd.setDBtype(DbType.MYSQL);
         new QueryDispacherTest().handleDispacher(map,cmd,new Class[]{
-                WhereLogicHandle.class,
-                ScanArgsLogicHandle.class,
-                TotalLogicHandle.class,
-                PaginationQueryLogicHandle.class
+                BuildConditionLogicHandle.class,
+                BuildVariableLogicHandle.class,
+                BuildPagingLogicHandle.class,
+                ExecuteTotalLogicHandle.class,
+                ExecuteMapQueryLogicHandle.class
         });
     }
 }

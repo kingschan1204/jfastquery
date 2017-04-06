@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
-import com.kingschan.fastquery.logic.handle.inital.WhereLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.ArrayQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.MapQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.PaginationQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildVariableLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildConditionLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteArrayQueryLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteMapQueryLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildPagingLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteTotalLogicHandle;
 import com.kingschan.fastquery.output.DataOutPut;
 import com.kingschan.fastquery.sql.connection.ConnectionFactory;
 import com.kingschan.fastquery.util.JdbcTemplete;
@@ -45,12 +45,12 @@ public class LogicHandleDispacher {
 	}
 	static{
 		map = new HashMap<Class, LogicHandle>();
-		map.put(ScanArgsLogicHandle.class, new ScanArgsLogicHandle());
-		map.put(WhereLogicHandle.class, new WhereLogicHandle());
-		map.put(ArrayQueryLogicHandle.class, new ArrayQueryLogicHandle());		
-		map.put(MapQueryLogicHandle.class, new MapQueryLogicHandle());
-		map.put(PaginationQueryLogicHandle.class, new PaginationQueryLogicHandle());
-		map.put(TotalLogicHandle.class, new TotalLogicHandle());
+		map.put(BuildVariableLogicHandle.class, new BuildVariableLogicHandle());
+		map.put(BuildConditionLogicHandle.class, new BuildConditionLogicHandle());
+		map.put(ExecuteArrayQueryLogicHandle.class, new ExecuteArrayQueryLogicHandle());
+		map.put(ExecuteMapQueryLogicHandle.class, new ExecuteMapQueryLogicHandle());
+		map.put(BuildPagingLogicHandle.class, new BuildPagingLogicHandle());
+		map.put(ExecuteTotalLogicHandle.class, new ExecuteTotalLogicHandle());
 	}
 	public HttpServletRequest getRequest() {
 		return request;

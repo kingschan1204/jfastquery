@@ -1,10 +1,10 @@
 package com.kingschan.fastquery.test;
 
 import com.kingschan.fastquery.logic.handle.dispacher.LogicHandleDispacher;
-import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
-import com.kingschan.fastquery.logic.handle.inital.WhereLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.PaginationQueryLogicHandle;
-import com.kingschan.fastquery.logic.handle.query.TotalLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildVariableLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildConditionLogicHandle;
+import com.kingschan.fastquery.logic.handle.inital.BuildPagingLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteTotalLogicHandle;
 import com.kingschan.fastquery.output.impl.StandardOutPut;
 import com.kingschan.fastquery.sql.dto.SqlCondition;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
@@ -55,10 +55,10 @@ public class ServletTest extends HttpServlet{
 //        }
         dispa.handleDispacher(map,cmd, new StandardOutPut(),
             new Class[]{
-                WhereLogicHandle.class,
-                ScanArgsLogicHandle.class,
-                TotalLogicHandle.class,
-                PaginationQueryLogicHandle.class
+                BuildConditionLogicHandle.class,
+                BuildVariableLogicHandle.class,
+                ExecuteTotalLogicHandle.class,
+                BuildPagingLogicHandle.class
             });
     }
 }
