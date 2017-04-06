@@ -6,6 +6,9 @@
 - oralce
 - sqlserver
 
+### 背景
+> 解决在java jdbc 开发中拼接sql语句的情景，通常sql会和java代码混在一起可读性差，像古代妇女的裹脚布一样，又长又臭。
+
 ### 特性
 
 - 分页
@@ -13,6 +16,7 @@
 - 动态传参
 - 动态组合where条件
 - 支持freemarker表达式（在sql里写ftl指令）
+- `让Java和sql语句分离`
 
 ### 查询条件关键字
 

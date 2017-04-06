@@ -1,7 +1,6 @@
 package com.kingschan.fastquery.web.com.kingschan.fastquery.dispacher.test;
 
 import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.logic.handle.ExportLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.ScanArgsLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.WhereLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.ArrayQueryLogicHandle;
@@ -36,7 +35,6 @@ public class QueryDispacherTest {
         map.put(MapQueryLogicHandle.class, new MapQueryLogicHandle());
         map.put(PaginationQueryLogicHandle.class, new PaginationQueryLogicHandle());
         map.put(TotalLogicHandle.class, new TotalLogicHandle());
-        map.put(ExportLogicHandle.class, new ExportLogicHandle());
     }
 
 
