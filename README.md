@@ -47,3 +47,19 @@ type|字段类型：TEXT,NUMBER,DATE,STRING,SELECT,DATETIME,BOOLEAN
 集合|...| in 
 空|nl|is null
 非空|nnl|is not null
+
+### 配置文件`fastquery.properties`
+```
+#jfastquery默认数据源实现类
+app.default.datasource=com.kingschan.fastquery.test.DruidDatasourceConfigure
+#对应pageindex关键字
+app.keyword.page.index=offset
+#对应pagesize关键字
+app.keyword.page.size=limit
+#对应where 条件组合json字符串关键字
+app.keyword.filter=filter
+# 对应排序字段
+app.keyword.sort=sort
+# 对应排序方式关键字
+app.keyword.order=order
+```
