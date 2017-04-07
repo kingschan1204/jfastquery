@@ -63,3 +63,32 @@ app.keyword.sort=sort
 # 对应排序方式关键字
 app.keyword.order=order
 ```
+
+### 默认数据源实现
+实现类：`com.kingschan.fastquery.conf.Configure`
+```
+public class DruidDatasourceConfigure implements Configure{
+
+	@Override
+	public DataSource getDataSource() throws Exception {
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("url", "jdbc:mysql://ip:端口/数据库名");
+		properties.put("username", "用户名");
+		properties.put("password", "密码");
+		properties.put("filters", "stat");
+		properties.put("maxActive", "20");
+		properties.put("initialSize", "1");
+		properties.put("maxWait", "60000");
+		properties.put("minIdle", "1");
+		properties.put("timeBetweenEvictionRunsMillis", "60000");
+		properties.put("minEvictableIdleTimeMillis", "300000");
+		properties.put("testWhileIdle", "true");
+		properties.put("testOnBorrow", "false");
+		properties.put("testOnReturn", "false");
+		properties.put("poolPreparedStatements", "true");
+		properties.put("maxOpenPreparedStatements", "20");
+		return DruidDataSourceFactory.createDataSource(properties);
+	}
+
+}
+```

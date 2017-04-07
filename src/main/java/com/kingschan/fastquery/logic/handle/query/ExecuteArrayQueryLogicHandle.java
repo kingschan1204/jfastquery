@@ -15,7 +15,7 @@ import java.util.Map;
  * @author kingschan
  *2013-09-22
  */
-public class ArrayQueryLogicHandle implements LogicHandle {
+public class ExecuteArrayQueryLogicHandle implements LogicHandle {
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {

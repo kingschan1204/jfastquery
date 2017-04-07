@@ -1,9 +1,10 @@
 package com.kingschan.fastquery.test;
 
-import com.kingschan.fastquery.logic.handle.dispacher.LogicHandleDispacher;
+import com.kingschan.fastquery.logic.handle.dispacher.WebLogicHandleDispacher;
 import com.kingschan.fastquery.logic.handle.inital.BuildVariableLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.BuildConditionLogicHandle;
 import com.kingschan.fastquery.logic.handle.inital.BuildPagingLogicHandle;
+import com.kingschan.fastquery.logic.handle.query.ExecuteMapQueryLogicHandle;
 import com.kingschan.fastquery.logic.handle.query.ExecuteTotalLogicHandle;
 import com.kingschan.fastquery.output.impl.StandardOutPut;
 import com.kingschan.fastquery.sql.dto.SqlCondition;
@@ -11,7 +12,6 @@ import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.ServletUtil;
 import com.kingschan.fastquery.sql.dto.SqlCommand;
 import net.sf.json.JSONArray;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,22 +43,17 @@ public class ServletTest extends HttpServlet{
         map.put("offset","1");//第几页
 
 
-        LogicHandleDispacher dispa = new LogicHandleDispacher(req, resp);
-        SqlCommand cmd =null;
-//        if (target.matches("[a-zA-Z0-9]{32}")) {
-//           // cmd = ActionUtil.getCmdById(target);
-//        }else{
-            //xml
-            cmd = new SqlCommand();
-            cmd.setSql("select * from blog_request_log a limit 10");
-            cmd.setDBtype(DbType.MYSQL);
-//        }
+        WebLogicHandleDispacher dispa = new WebLogicHandleDispacher(req, resp);
+        SqlCommand cmd = new SqlCommand();
+        cmd.setSql("select * from blog_request_log a limit 10");
+        cmd.setDBtype(DbType.MYSQL);
         dispa.handleDispacher(map,cmd, new StandardOutPut(),
             new Class[]{
                 BuildConditionLogicHandle.class,
                 BuildVariableLogicHandle.class,
+                BuildPagingLogicHandle.class,
                 ExecuteTotalLogicHandle.class,
-                BuildPagingLogicHandle.class
+                ExecuteMapQueryLogicHandle.class
             });
     }
 }
