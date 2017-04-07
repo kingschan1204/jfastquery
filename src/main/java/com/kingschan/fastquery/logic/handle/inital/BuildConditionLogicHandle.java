@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Map;
 import com.kingschan.fastquery.conf.FastQueryConfigure;
 import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
 import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
 import com.kingschan.fastquery.sql.dto.DataTransfer;
 import com.kingschan.fastquery.sql.dto.SqlCondition;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class BuildConditionLogicHandle implements LogicHandle {
      * @return
      * @throws JSONException
      */
-    private SqlCondition getCondition(JSONObject json) throws JSONException{
+    private SqlCondition getCondition(JSONObject json) throws JSONException {
         String logic=json.has("logic")?json.getString("logic"):"";
         //defOperator  快捷查询
         String operator=json.has("operator")?json.getString("operator"):(json.has("defOperator")?json.getString("defOperator"):"");
@@ -59,20 +59,20 @@ public class BuildConditionLogicHandle implements LogicHandle {
             if (null==jsonstr||jsonstr.replaceAll("\\s*", "").isEmpty()) {
                 jsonstr="[]"; 
             }
-            JSONArray filters = new JSONArray(jsonstr);
+            JSONArray filters = JSONArray.fromObject(jsonstr);
             //解决逻辑冲突
-            if (filters.length()>0) {
+            if (filters.size()>0) {
                 JSONArray temp = new JSONArray();
               //  temp.put(0,new JSONObject("{logic:'and',field:'('}"));
-                for (int i = 0; i < filters.length(); i++) {
-                    temp.put(filters.get(i));
+                for (int i = 0; i < filters.size(); i++) {
+                    temp.add(filters.get(i));
                 }
               //  temp.put(new JSONObject("{logic:'and',field:')'}"));
                 filters=temp;
             }
             log.debug("组合查询：{}", filters);
             //取出每个条件
-            for (int i=0;i<filters.length();i++) {
+            for (int i=0;i<filters.size();i++) {
                 SqlCondition condition=getCondition(filters.getJSONObject(i));
                 boolean parentheses=condition.getField().matches("\\(|\\)");//是否为括号
                 String relationShip=condition.getLogic();//逻辑运算符

@@ -1,8 +1,9 @@
 package com.kingschan.fastquery.util;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * 格式化工具类
@@ -19,8 +20,8 @@ public class EasyUiTagUtil {
 		JSONArray jsons = new JSONArray();	
 		JSONObject json =null;
 		for (int i = 0; i < data.size(); i++) {
-			json = new JSONObject(data.get(i));
-			jsons.put(json);
+			json = JSONObject.fromObject(data.get(i));
+			jsons.add(json);
 		}
 		return jsons;
 	}

@@ -11,6 +11,7 @@ import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.sql.dto.DataTransfer;
 import com.kingschan.fastquery.sql.dto.SqlCommand;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -49,6 +50,6 @@ public class QueryDispacherTest {
                 ExecuteTotalLogicHandle.class,
                 ExecuteMapQueryLogicHandle.class
         });
-        log.info("{}",dt);
+        log.info("{}", JSONObject.fromObject(dt));
     }
 }
