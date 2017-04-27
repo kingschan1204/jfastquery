@@ -92,3 +92,79 @@ public class DruidDatasourceConfigure implements Configure{
 
 }
 ```
+
+
+## java运行demo参考
+```
+public class QueryDispacherTest {
+    private static Logger log = LoggerFactory.getLogger(QueryDispacherTest.class);
+
+    public static void main(String[] args) {
+        List<SqlCondition> conditions=new ArrayList<SqlCondition>();
+        conditions.add(new SqlCondition("and","a.req_datetime","DATE","bw","2017-01-01","2017-02-01"));
+        String filter=JSONArray.fromObject(conditions).toString();
+        //查询方案所有传入参数
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("filter",filter);//查询条件
+        map.put("sort","req_datetime");//排序字段
+        map.put("order","desc");//排序的方式
+        map.put("limit","10");//显示条数
+        map.put("offset","1");//第几页
+
+        map.put("blog","kingschan");//传入变量blog
+
+
+        SqlCommand cmd = new SqlCommand();
+        cmd.setSql("select req_ip,count(1) total from blog_request_log a where a.req_blog='${blog}'  group by req_ip");
+        cmd.setDBtype(DbType.MYSQL);
+        DataTransfer dt=  new LogicHandleDispacher().handleDispacher(map,cmd,new Class[]{
+                BuildConditionLogicHandle.class,
+                BuildVariableLogicHandle.class,
+                BuildPagingLogicHandle.class,
+                ExecuteTotalLogicHandle.class,
+                ExecuteMapQueryLogicHandle.class
+        });
+        log.info("{}", JSONObject.fromObject(dt));
+    }
+}
+```
+
+## servlet 运行demo参考类
+```
+public class ServletTest extends HttpServlet{
+
+    private static final long serialVersionUID = 1L;
+
+    //http://localhost/jfastquery/test?offset=1&limit=30&sort=req_datetime&order=desc
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        //查询方案所有传入参数
+        Map<String,Object> map =ServletUtil.getParameterMap(req);
+        List<SqlCondition> conditions= new ArrayList<SqlCondition>();
+        conditions.add( new SqlCondition("and","a.req_datetime","DATE","bw","2017-01-01","2017-02-01"));
+        conditions.add( new SqlCondition("and","a.req_blog","STRING","eq","kingschan",null));
+        JSONArray jons=JSONArray.fromObject(conditions);
+        map.put("filter",jons);//查询条件
+        map.put("sort","id");//排序字段
+        map.put("order","desc");//排序的方式
+        map.put("limit","10");//显示条数
+        map.put("offset","1");//第几页
+
+
+        WebLogicHandleDispacher dispa = new WebLogicHandleDispacher(req, resp);
+        SqlCommand cmd = new SqlCommand();
+        cmd.setSql("select * from blog_request_log a limit 10");
+        cmd.setDBtype(DbType.MYSQL);
+        dispa.handleDispacher(map,cmd, new StandardOutPut(),
+            new Class[]{
+                BuildConditionLogicHandle.class,
+                BuildVariableLogicHandle.class,
+                BuildPagingLogicHandle.class,
+                ExecuteTotalLogicHandle.class,
+                ExecuteMapQueryLogicHandle.class
+            });
+    }
+}
+```
+
