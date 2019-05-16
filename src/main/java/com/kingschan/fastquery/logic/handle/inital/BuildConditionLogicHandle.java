@@ -1,20 +1,20 @@
 package com.kingschan.fastquery.logic.handle.inital;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.kingschan.fastquery.conf.FastQueryConfigure;
+import com.kingschan.fastquery.logic.LogicHandle;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
+import com.kingschan.fastquery.sql.dto.SqlCondition;
+import com.kingschan.fastquery.sql.jsqlparser.DbType;
+import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
+import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.kingschan.fastquery.conf.FastQueryConfigure;
-import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory;
-import com.kingschan.fastquery.sql.parse.QueryArgsAnalysisFactory.FiledType;
-import com.kingschan.fastquery.sql.dto.DataTransfer;
-import com.kingschan.fastquery.sql.dto.SqlCondition;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <pre>
@@ -22,23 +22,22 @@ import org.slf4j.LoggerFactory;
  *date:2014-8-8
  *</pre>
  */
+@Slf4j
 public class BuildConditionLogicHandle implements LogicHandle {
-    private static Logger log = LoggerFactory.getLogger(BuildConditionLogicHandle.class);
     /**
      * 将json传成对象
      * @param json
      * @return
-     * @throws JSONException
      */
-    private SqlCondition getCondition(JSONObject json) throws JSONException {
-        String logic=json.has("logic")?json.getString("logic"):"";
+    private SqlCondition getCondition(JSONObject json) throws Exception {
+        String logic=json.containsKey("logic")?json.getString("logic"):"";
         //defOperator  快捷查询
-        String operator=json.has("operator")?json.getString("operator"):(json.has("defOperator")?json.getString("defOperator"):"");
-        String table=json.has("table")?json.getString("table"):"";
-        String field=json.has("field")?json.getString("field"):"";
-        String value=json.has("value")?json.getString("value"):"";
-        String type=json.has("type")?json.getString("type"):"";
-        String value2=json.has("value2")?json.getString("value2"):null;
+        String operator=json.containsKey("operator")?json.getString("operator"):(json.containsKey("defOperator")?json.getString("defOperator"):"");
+        String table=json.containsKey("table")?json.getString("table"):"";
+        String field=json.containsKey("field")?json.getString("field"):"";
+        String value=json.containsKey("value")?json.getString("value"):"";
+        String type=json.containsKey("type")?json.getString("type"):"";
+        String value2=json.containsKey("value2")?json.getString("value2"):null;
         SqlCondition sc = new SqlCondition(
                 logic,
                 table.isEmpty()?field:String.format("%s.%s", table,field),
@@ -55,11 +54,11 @@ public class BuildConditionLogicHandle implements LogicHandle {
         StringBuffer filter = new StringBuffer();
         if(args.containsKey(configure.getArgs().getFilter())){
             //组合查询
-            String jsonstr=java.net.URLDecoder.decode(args.get(configure.getArgs().getFilter()).toString(), "UTF-8");
+            String jsonstr=args.get(configure.getArgs().getFilter()).toString();
             if (null==jsonstr||jsonstr.replaceAll("\\s*", "").isEmpty()) {
                 jsonstr="[]"; 
             }
-            JSONArray filters = JSONArray.fromObject(jsonstr);
+            JSONArray filters = JSONArray.parseArray(jsonstr);
             //解决逻辑冲突
             if (filters.size()>0) {
                 JSONArray temp = new JSONArray();

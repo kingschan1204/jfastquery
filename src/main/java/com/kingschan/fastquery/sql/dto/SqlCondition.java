@@ -1,6 +1,9 @@
 package com.kingschan.fastquery.sql.dto;
 
-import net.sf.json.JSONObject;
+
+import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <pre>
@@ -14,15 +17,22 @@ import net.sf.json.JSONObject;
  * @version V2.0
  * </pre>
  */
+@ApiModel( value = "condition",description = "查询条件")
 public class SqlCondition {
 
 
-    private String logic;//逻辑操作符
-    private String field;//sql查询字段 如有表名格式 如：a.name
-    private String type;//字段类型
-    private String operator;//操作符 like = > < <> in...
-    private String value;//值
-    private String value2;//如果操作符是 between 则此值启用
+    @ApiModelProperty("逻辑操作符")
+    private String logic;
+    @ApiModelProperty("查询字段 如有表名格式 如：a.name")
+    private String field;
+    @ApiModelProperty("字段类型：TEXT,NUMBER,DATE,STRING,SELECT,DATETIME,BOOLEAN")
+    private String type;
+    @ApiModelProperty("等于eq 不等于neq大于gt小于lt大于等于gte小于等于\tlte介于\tbw包含\tc左包含\tsw右包含\tew集合\t...空\tnl非空\tnnl")
+    private String operator;
+    @ApiModelProperty("值")
+    private String value;
+    @ApiModelProperty("如果操作符是 between 则此值启用")
+    private String value2;
 
     //init
 
@@ -126,6 +136,6 @@ public class SqlCondition {
 
     @Override
     public String toString() {
-        return JSONObject.fromObject(this).toString();
+        return JSON.toJSONString(this);
     }
 }

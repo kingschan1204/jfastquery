@@ -6,6 +6,7 @@ import com.kingschan.fastquery.sql.jsqlparser.DbType;
 import com.kingschan.fastquery.util.JdbcTemplete;
 import com.kingschan.fastquery.logic.LogicHandle;
 import com.kingschan.fastquery.sql.dto.DataTransfer;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +17,8 @@ import org.slf4j.LoggerFactory;
  *date:2013-8-19
  *</pre>
  */
+@Slf4j
 public class ExecuteTotalLogicHandle implements LogicHandle {
-	private static Logger log = LoggerFactory.getLogger(ExecuteTotalLogicHandle.class);
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer dt, Connection con,
             DbType type) throws Exception {

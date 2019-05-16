@@ -18,7 +18,6 @@ import com.kingschan.fastquery.sql.dto.DataTransfer;
 public class StandardOutPut implements DataOutPut, java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//private static Logger log = Logger.getLogger(GridOutPut.class);
     @SuppressWarnings("unchecked")
     public void output(HttpServletRequest request, HttpServletResponse response, DataTransfer sqb,
             Map<String, Object> args) throws Exception {

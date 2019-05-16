@@ -14,6 +14,7 @@ import com.kingschan.fastquery.sql.connection.ConnectionFactory;
 import com.kingschan.fastquery.util.JdbcTemplete;
 import com.kingschan.fastquery.sql.dto.DataTransfer;
 import com.kingschan.fastquery.sql.dto.SqlCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +23,10 @@ import org.slf4j.LoggerFactory;
  *  kings.chan
  *  2017-04-07
  */
+@Slf4j
 @SuppressWarnings("rawtypes")
 public class LogicHandleDispacher {
 
-	private Logger log = LoggerFactory.getLogger(LogicHandleDispacher.class);
 	protected static Map<Class, LogicHandle> map ;
 	static{
 		map = new HashMap<Class, LogicHandle>();

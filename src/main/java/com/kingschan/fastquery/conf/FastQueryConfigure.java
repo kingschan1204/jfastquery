@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 import com.kingschan.fastquery.conf.model.KeyWordArgs;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +23,13 @@ import javax.sql.DataSource;
  * @version V1.0
  * </pre>
  */
+@Slf4j
 public class FastQueryConfigure {
 
     private FastQueryConfigure() {
     }
 
     private static FastQueryConfigure instance;
-    private static Logger log = LoggerFactory.getLogger(FastQueryConfigure.class);
     private static final String CONFIG_FILE_NAME = "fastquery.properties";//配置文件名称
     private DataSource defaultDs;//默认连接
     private KeyWordArgs args;

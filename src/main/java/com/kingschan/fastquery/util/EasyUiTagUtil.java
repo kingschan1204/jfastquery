@@ -1,7 +1,8 @@
 package com.kingschan.fastquery.util;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import java.util.Map;
  */
 public class EasyUiTagUtil {
 
+
 	/**
 	 * 格式化成多行记录的josn字符串
 	 * @return
@@ -20,7 +22,7 @@ public class EasyUiTagUtil {
 		JSONArray jsons = new JSONArray();	
 		JSONObject json =null;
 		for (int i = 0; i < data.size(); i++) {
-			json = JSONObject.fromObject(data.get(i));
+			json = JSON.parseObject(JSON.toJSONString(data.get(i)));
 			jsons.add(json);
 		}
 		return jsons;

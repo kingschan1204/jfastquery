@@ -22,6 +22,6 @@ public interface FieldTypeAnalysis {
 	 * @return
 	 * @throws Exception
 	 */
-	String Analysis(SqlCondition condition,DbType dbtype)throws Exception;
+	String Analysis(SqlCondition condition, DbType dbtype)throws Exception;
 
 }

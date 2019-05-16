@@ -20,5 +20,5 @@ public interface LogicHandle {
 	 * @return
 	 * @throws Exception
 	 */
-	DataTransfer doLogic(Map<String, Object> args,DataTransfer sqb,Connection con,DbType type)throws Exception;
+	DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con, DbType type)throws Exception;
 }

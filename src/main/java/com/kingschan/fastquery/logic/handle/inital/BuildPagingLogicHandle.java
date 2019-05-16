@@ -1,24 +1,23 @@
 package com.kingschan.fastquery.logic.handle.inital;
 
+import com.kingschan.fastquery.logic.LogicHandle;
+import com.kingschan.fastquery.sql.dto.DataTransfer;
+import com.kingschan.fastquery.sql.jsqlparser.DbType;
+import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
-
-import com.kingschan.fastquery.logic.LogicHandle;
-import com.kingschan.fastquery.sql.jsqlparser.DbType;
-import com.kingschan.fastquery.sql.jsqlparser.DefaultSqlParser;
-import com.kingschan.fastquery.sql.dto.DataTransfer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 分页查询逻辑处理
  * @author kingschan
  *2013-80-19
  */
+@Slf4j
 public class BuildPagingLogicHandle implements LogicHandle {
 
-    private Logger log = LoggerFactory.getLogger(BuildPagingLogicHandle.class);
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
         List<?> lis =null;
@@ -41,7 +40,7 @@ public class BuildPagingLogicHandle implements LogicHandle {
         }           
             //设置sql
         sqb.setSql(dsp.toString());
-        log.debug("Limit SQL:{}",dsp.toString());
+        log.info("Limit SQL:{}",dsp.toString());
         return sqb;
     }
 

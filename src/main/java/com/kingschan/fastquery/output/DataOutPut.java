@@ -48,5 +48,5 @@ public interface DataOutPut {
 	 * @param args
      * @throws Exception
      */
-	void output(HttpServletRequest request,HttpServletResponse response,DataTransfer dtf,Map<String, Object> args)throws Exception;
+	void output(HttpServletRequest request, HttpServletResponse response, DataTransfer dtf, Map<String, Object> args)throws Exception;
 }

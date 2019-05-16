@@ -12,7 +12,6 @@ import com.kingschan.fastquery.sql.dto.DataTransfer;
  *date:2014-4-30
  */
 public class BuildVariableLogicHandle implements LogicHandle {
-//	private static Logger log = Logger.getLogger(ScanArgsLogicHandle.class);
 
     public DataTransfer doLogic(Map<String, Object> args, DataTransfer sqb, Connection con,
             DbType type) throws Exception {
